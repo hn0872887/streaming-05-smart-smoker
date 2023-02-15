@@ -40,7 +40,4 @@ Create three consumer processes, each one monitoring one of the temperature stre
 Perform calculations to determine if a significant event has occurred.
  
 
-Optional: Alert Notifications
-Optionally, we can have our consumers send us an email or a text when a significant event occurs. 
-You'll need some way to send outgoing emails. I use my main Gmail account - other options are possible. 
  
