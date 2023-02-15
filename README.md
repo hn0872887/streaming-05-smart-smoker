@@ -1,31 +1,35 @@
 # streaming-05-smart-smoker
 
-Using a Barbeque Smoker
-When running a barbeque smoker, we monitor the temperatures of the smoker and the food to ensure everything turns out tasty. Over long cooks, the following events can happen:
+ Use RabbitMQ to distribute tasks to multiple workers
 
-The smoker temperature can suddenly decline.
-The food temperature doesn't change. At some point, the food will hit a temperature where moisture evaporates. It will stay close to this temperature for an extended period of time while the moisture evaporates (much like humans sweat to regulate temperature). We say the temperature has stalled.
+One process will create task messages. Multiple worker processes will share the work.
+
+Before You Begin
+
+Create a new repo into your GitHub. Done
+
+Clone your repo down to your machine. Done
+
+Upload csv file to repo. Done
+
+Add  gitignore into your GitHub. Done
+
+
+View / Command Palette - then Python: Select Interpreter Done
+
+Select your conda environment. Done
+
+
+Read the RabbitMQ Tutorial - Work Queues Done
+
+Create bbq_producer.py file. Done
+
+Write the code and comments in bbq_producer.py file. Done
+
+Execute bbq_producer.py
+
  
 
-Sensors
-We have temperature sensors track temperatures and record them to generate a history of both (a) the smoker and (b) the food over time. These readings are an example of time-series data, and are considered streaming data or data in motion.
-
- 
-
-Streaming Data
-Our thermometer records three temperatures every thirty seconds (two readings every minute). The three temperatures are:
-
-the temperature of the smoker itself.
-the temperature of the first of two foods, Food A.
-the temperature for the second of two foods, Food B.
- 
-
-Significant Events
-We want know if:
-
-The smoker temperature decreases by more than 15 degrees F in 2.5 minutes (smoker alert!)
-Any food temperature changes less than 1 degree F in 10 minutes (food stall!)
- 
 
 Smart System
 We will use Python to:
