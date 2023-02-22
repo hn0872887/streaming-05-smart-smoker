@@ -50,6 +50,7 @@ def send_message(host: str, queue_name: str, message):
         # use the channel to publish a message to the queue
         # every message passes through an exchange
         ch.basic_publish(exchange="", routing_key=queue_name, body=message)
+        
         # print a message to the console for the user
         
         print("Sent message to", queue_name, message)
@@ -93,28 +94,30 @@ if __name__ == "__main__":
 
     # Get message from the file
     for row in reader:
-        #Read each row of csv file and put Time Stamp, Smoker temp, Food A temp and Food B temp in different variables
-        var1, var2, var3, var4 = row
+        #Read each row of csv file and put Time Stamp, Smoker temp, Food A temp and Food B temp in their variables
+        timestamp, smoker_temp, food_A_temp, food_B_temp = row
 
-        #Below converts list to a string. If the below is not done an error is thrown
+        # converts list to a string. If the below is not done an error is thrown
         #message = ",".join(row)
-        message_ch1 = (var1, var2)
-        smoker_msg = ",".join(message_ch1)
+        
+        #try to call float(smoker_temp) to get numeric values
+        ch1 = (timestamp, float(smoker_temp))
+        smoker_msg = ",".join(ch1)
 
-        message_ch2 = (var1, var3)
-        foodA_msg = ",".join(message_ch2)
+        ch2 = (timestamp, food_A_temp)
+        food_A_msg = ",".join(ch2)
 
-        message_ch3 = (var1, var4)
-        foodB_msg = ",".join(message_ch3)
+        ch3 = (timestamp, food_B_temp)
+        food_B_msg = ",".join(ch3)
 
-        # send the time stamp and Smoker temp to the first queue
+        # send the tuple of (time stamp and Smoker temp) to the 01-smoker queue
         send_message("localhost","01-smoker",smoker_msg)
 
-        # send the time stamp and Food A temp to the Second queue
-        send_message("localhost","02-food-A",foodA_msg)
+        # send the tuple of (time stamp and Food A temp) to the 02-food-Aqueue
+        send_message("localhost","02-food-A",food_A_msg)
 
-        # send the time stamp and Food B temp to the Third queue
-        send_message("localhost","03-food-B",foodB_msg)
+        # send the tuple of (time stamp and Food B temp) to the 02-food-B queue
+        send_message("localhost","03-food-B",food_B_msg)
         
         # Read records once in 30 seconds
         time.sleep(30)
